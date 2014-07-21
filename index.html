@@ -1,0 +1,100 @@
+<html>
+<head>
+	<title>5</title>
+	<style type="text/css">
+		body {
+			position: relative;
+		}
+		.selectstoragejs {
+			position: absolute;
+			top: 15px;
+			right: 15px;
+			border: 1px solid lightblue;
+			padding: 10px;
+			color: #000;
+			border-radius: 3px;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="out"></div>
+	<div id="array"></div>
+	<p class="selectstoragejs" contenteditable="true"></p>
+
+	<p>sadf sdfasddf h fgh fs dsd rt h rn gfnf gfds gsdf hsfj gfb cv dsr  stjst sh</p>
+	<p>vcioboose imieo wofp pfkod ssfsds [[fe qwinqn infiasl ckxv xnq scd .</p>
+
+	<script type="text/javascript">
+
+		function addToMySelection() {
+		  var	selectionString = window.getSelection().toString(),
+		    	storage = window.localStorage['selectstoragejs'];
+
+
+		  storage = 'undefined' !== storage ? storage : '[]';
+		  // console.log(storage);
+    	var temp = JSON.parse(storage);
+    	temp.push(selectionString);
+    	var updated = JSON.stringify(temp);
+    	window.localStorage['selectstoragejs'] = updated;
+
+    	var p = document.getElementsByClassName('selectstoragejs')[0];
+    	p.innerHTML = temp.join("");
+		}
+
+
+
+		(function() {
+
+
+		$(document).ready(function() {
+
+			var keys = {};
+			addEventListener('keydown', function(e) {
+				keys[e.which] = true;
+				printKeys();
+				// console.log(keys);
+				keyupElems(keys);
+			});
+
+			addEventListener('keyup', function(e) {
+				delete keys[e.which];
+				printKeys();
+			});
+
+			function keyupElems(obj) {
+				var temp = [];
+
+				for(i in obj) {
+					temp.push(i);
+				};
+
+				if(temp.indexOf("17") > -1) {
+					// console.log('both');
+					window.localStorage['selectstoragejs'] = 'undefined';
+					document.addEventListener('dblclick', addToMySelection);
+				}
+			}
+
+			function printKeys() {
+		    var html = '';
+		    for (var i in keys) {
+		        if (!keys.hasOwnProperty(i)) continue;
+		        html += '<p>' + i + '</p>';
+		    }
+		    document.getElementById('out').innerHTML = html;
+			}
+		});
+
+		})();
+
+
+			
+
+	</script>
+</body>
+</html>
+
+
+
